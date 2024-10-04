@@ -27,7 +27,7 @@ class AvailableCoursesMenu(tk.Frame):
         self.select_course_button.pack(pady=20)
 
         # back to home button
-        self.back_to_home_button = tk.Button(self, text="Back Home", command=self.back_to_home_button_clicked)
+        self.back_to_home_button = tk.Button(self, text="Back to Home", command=self.back_to_home_button_clicked)
         self.back_to_home_button.pack(pady=10)
 
     # select course and add it to the Student Class
