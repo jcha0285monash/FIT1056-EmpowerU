@@ -54,28 +54,32 @@ class RegisterMenu(tk.Frame):
         self.alert_label.grid(row=5, column=0, columnspan=2, padx=10, pady=10)
 
         # register button widget
-        self.register_button = tk.Button(master=self, text="Register", command=self.register)        
+        self.register_button = tk.Button(master=self, text="Register", command=self.register_button_clicked)        
         self.register_button.grid(row=6, column=0, columnspan=2, padx=10, pady=10)
 
         # back to homepage button widget
         self.back_button = tk.Button(master=self, text="Back to Homepage", command=self.back_to_homepage_button_clicked)
         self.back_button.grid(row=7, column=0, columnspan=2, padx=10, pady=10)
 
-    def register(self):
+    def register_button_clicked(self):
         name = self.name_var.get()
         email = self.email_var.get()
         password = self.password_var.get()
         confirm_password = self.confirm_password_var.get()
 
         if password != confirm_password:
+            self.alert_label.config(fg="red")
             self.alert_var.set("Passwords do not match")
         elif name == "" or email == "" or password == "" or confirm_password == "":
+            self.alert_label.config(fg="red")
             self.alert_var.set("Please fill in all fields")
         elif self.validate_email(email):
+            self.alert_label.config(fg="red")
             self.alert_var.set("Email already exists or invalid email")
         else:
-            self.register_student(name, email, password)
-            self.alert_var.set("Registration successful. Please log in.")
+            stu_id = self.register_student(name, email, password)
+            self.alert_label.config(fg="green")
+            self.alert_var.set(f"Registration successful.\nPlease log in with uid {stu_id}.")
 
     def import_students(self):
         self.students=[]
@@ -99,7 +103,7 @@ class RegisterMenu(tk.Frame):
             with open(student_path, "a", encoding="utf8") as f:
                 new_student = f"{stu_id},{email},{password},{name},{course}"
                 f.write(new_student + "\n")
-            return
+            return stu_id
 
     def validate_email(self, email):
         self.import_students()

@@ -27,6 +27,7 @@ class EmpowerU(tk.Tk):
 
     def show_student_menu(self, studentmenu):
         student_menu = studentmenu
+        student_menu.load_courses()
         student_menu.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
     def hide_student_menu(self, studentmenu):
