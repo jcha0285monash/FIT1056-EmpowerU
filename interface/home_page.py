@@ -95,6 +95,7 @@ class HomePage(tk.Frame):
             return
         
         # If the entered UID and password are valid, clear the entry fields
+        self.alert_var.set("Invalid UID or Password")
         self.uid_entry.delete(0, tk.END)
         self.password_entry.delete(0, tk.END)
 

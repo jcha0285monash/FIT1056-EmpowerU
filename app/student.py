@@ -9,8 +9,8 @@ class Student(User):
             with open(student_path, "r", encoding="utf8") as rf:
                 lines = rf.readlines()
             for line in lines:
-                stu_id, email, password, name, course = line.strip().split(",")
-                if uid == stu_id and password == password:
+                stu_id, email, stored_password, name, course = line.strip().split(",")
+                if uid == stu_id and password == stored_password:
                     if "stu" in stu_id.lower():
                         return Student(stu_id, email, password, name, course)
                     else:

@@ -19,7 +19,7 @@ class AvailableCoursesMenu(tk.Frame):
 
         # alert variable and label widget
         self.alert_var = tk.StringVar()
-        self.alert_label = tk.Label(self, textvariable=self.alert_var, fg="red", font=("Arial", 12))
+        self.alert_label = tk.Label(self, textvariable=self.alert_var, font=("Arial", 12))
         self.alert_label.pack(pady=10)
 
         # select course button
@@ -34,9 +34,11 @@ class AvailableCoursesMenu(tk.Frame):
     def select_course(self):
         selected_course = self.courses_listbox.get(tk.ACTIVE)
         if selected_course in self.student_user.course:
-            self.alert_var.set("ERROR = Course already selected")
+            self.alert_label.config(fg="red")
+            self.alert_var.set("Course already selected")
             return
         self.student_user.course = self.student_user.course + selected_course + "&" 
+        self.alert_label.config(fg="green")
         self.alert_var.set(f"{selected_course} course selected successfully")
         self.update_student_database()
 
