@@ -1,6 +1,5 @@
 import tkinter as tk
-from interface.available_courses_menu import AvailableCoursesMenu
-from interface.current_courses_menu import CurrentCoursesMenu
+from interface.student_menus.available_courses_menu import AvailableCoursesMenu
 
 class StudentMenu(tk.Frame):
     def __init__(self, master, student_user):
