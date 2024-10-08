@@ -30,6 +30,10 @@ class StaffMenu(tk.Frame):
         self.view_courses_button = tk.Button(self, text="View All Courses", command=self.view_courses_button_clicked)
         self.view_courses_button.pack(pady=10)
 
+        #logout button
+        self.logout_button = tk.Button(self, text="Logout", command=self.logout_button_clicked)
+        self.logout_button.pack(pady=10)
+
     def view_students_button_clicked(self):
         self.master.hide_staff_menu(self)
         staff_student_menu = StaffStudentMenu(self.master, self.staff_user, self)
@@ -49,3 +53,7 @@ class StaffMenu(tk.Frame):
         self.master.hide_staff_menu(self)
         staff_courses_menu = StaffCoursesMenu(self.master, self.staff_user, self)
         self.master.show_staff_courses_menu(staff_courses_menu)
+
+    def logout_button_clicked(self):
+        self.master.hide_staff_menu(self)
+        self.master.show_homepage()
