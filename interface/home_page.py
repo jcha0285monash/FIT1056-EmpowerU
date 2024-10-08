@@ -71,6 +71,8 @@ class HomePage(tk.Frame):
                 studentmenu = StudentMenu(self.master, student_user)
                 self.master.show_student_menu(studentmenu)
                 self.clear_input()
+            else:
+                self.alert_var.set("Invalid UID or Password")
         elif "tea" in uid:
             # If the entered UID is a teacher, create a Teacher object and call the login method
             teacher_user = Teacher.authenticate(uid, password)
@@ -80,6 +82,8 @@ class HomePage(tk.Frame):
                 teachermenu = TeacherMenu(self.master, teacher_user)
                 self.master.show_teacher_menu(teachermenu)
                 self.clear_input()
+            else:
+                self.alert_var.set("Invalid UID or Password")
         elif "sta" in uid:
             # If the entered UID is a staff, create a Staff object and call the login method
             staff_user = Staff.authenticate(uid, password)
@@ -89,13 +93,14 @@ class HomePage(tk.Frame):
                 staffmenu = StaffMenu(self.master, staff_user)
                 self.master.show_staff_menu(staffmenu)
                 self.clear_input()
+            else:
+                self.alert_var.set("Invalid UID or Password")
         else:
             # If the entered UID is not a valid user, display an error message
             self.alert_var.set("Invalid UID or Password")
             return
         
         # If the entered UID and password are valid, clear the entry fields
-        self.alert_var.set("Invalid UID or Password")
         self.uid_entry.delete(0, tk.END)
         self.password_entry.delete(0, tk.END)
 
