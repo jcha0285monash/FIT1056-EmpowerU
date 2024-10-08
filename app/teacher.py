@@ -9,13 +9,13 @@ class Teacher(User):
             with open(teacher_path, "r", encoding="utf8") as rf:
                 lines = rf.readlines()
             for line in lines:
-                tea_id, email, stored_password, name, subject = line.strip().split(",")
+                tea_id, email, stored_password, name, course = line.strip().split(",")
                 if uid == tea_id and password == stored_password:
                     if "tea" in tea_id.lower():
-                        return Teacher(tea_id, email, password, name, subject)
+                        return Teacher(tea_id, email, password, name, course)
                     else:
                         return None
                     
-    def __init__(self, uid, email, password, name, subject):
-        super().__init__(uid, name, email, password)
-        self.subject = subject
+    def __init__(self, uid, email, password, name, course):
+        super().__init__(uid, email, name, password)
+        self.course = course
