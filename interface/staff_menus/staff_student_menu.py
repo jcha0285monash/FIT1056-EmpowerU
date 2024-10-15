@@ -40,8 +40,14 @@ class StaffStudentMenu(tk.Frame):
                 self.student_listbox.insert(tk.END, line.strip())
 
     def edit_student_button_clicked(self):
-        student_data = self.student_listbox.get(tk.ACTIVE)
-        student_details = student_data.split(",")
+        selected_indices = self.student_listbox.curselection()
+        student_data = [self.student_listbox.get(i) for i in selected_indices]
+        if not student_data:
+            self.alert_label.config(fg="red")
+            self.alert_var.set("Please select a student")
+            return
+        student_details = student_data[0]
+        student_details = student_details.split(",")
         student_user_uid = student_details[0]
         student_user_email = student_details[1]
         student_user_password = student_details[2]
