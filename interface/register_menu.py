@@ -34,7 +34,7 @@ class RegisterMenu(tk.Frame):
         self.password_label = tk.Label(master=self, text="Password:")
         self.password_label.grid(row=3, column=0, padx=10, pady=10, sticky=tk.E)
 
-        # password variable and entry widget
+        # password entry widget
         self.password_var = tk.StringVar()
         self.password_entry = tk.Entry(master=self, textvariable=self.password_var, show="*")
         self.password_entry.grid(row=3, column=1, padx=10, pady=10, sticky=tk.W)
@@ -75,7 +75,10 @@ class RegisterMenu(tk.Frame):
             self.alert_var.set("Please fill in all fields")
         elif self.validate_email(email):
             self.alert_label.config(fg="red")
-            self.alert_var.set("Email already exists or invalid email")
+            self.alert_var.set("Email already exists")
+        elif "@" not in email or "." not in email:
+            self.alert_label.config(fg="red")
+            self.alert_var.set("Invalid email")
         else:
             stu_id = self.register_student(name, email, password)
             self.alert_label.config(fg="green")
@@ -94,11 +97,8 @@ class RegisterMenu(tk.Frame):
             return self.students
 
     def register_student(self, name, email, password, course=""):
-        self.import_students()
         student_path = "./database/student.txt"
         stu_id = "stu" + str(len(self.students) + 1).zfill(4)
-        student_obj = Student(stu_id, email, password, name, course)
-        self.students.append(student_obj)
         if os.path.exists(student_path):
             with open(student_path, "a", encoding="utf8") as f:
                 new_student = f"{stu_id},{email},{password},{name},{course}"
@@ -108,7 +108,7 @@ class RegisterMenu(tk.Frame):
     def validate_email(self, email):
         self.import_students()
         for student in self.students:
-            if student.email == email or "@" not in email or "." not in email:
+            if student.email == email:
                 return True
         return False
 
