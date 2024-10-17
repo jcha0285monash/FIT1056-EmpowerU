@@ -17,5 +17,5 @@ class Teacher(User):
                         return None
                     
     def __init__(self, uid, email, password, name, course, status):
-        super().__init__(uid, email, name, password, status)
+        super().__init__(uid, email, password, name, status)
         self.course = course
