@@ -91,17 +91,17 @@ class RegisterMenu(tk.Frame):
             with open(student_path, "r", encoding="utf8") as rf:
                 lines = rf.readlines()
             for line in lines:
-                stu_id, email, password, name, course = line.strip().split(",")
-                student_obj = Student(stu_id, email, password, name, course)
+                stu_id, email, password, name, course, status = line.strip().split(",")
+                student_obj = Student(stu_id, email, password, name, course, status)
                 self.students.append(student_obj)
             return self.students
 
-    def register_student(self, name, email, password, course=""):
+    def register_student(self, name, email, password, course="", status=""):
         student_path = "./database/student.txt"
         stu_id = "stu" + str(len(self.students) + 1).zfill(4)
         if os.path.exists(student_path):
             with open(student_path, "a", encoding="utf8") as f:
-                new_student = f"{stu_id},{email},{password},{name},{course}"
+                new_student = f"{stu_id},{email},{password},{name},{course},{status}"
                 f.write(new_student + "\n")
             return stu_id
 

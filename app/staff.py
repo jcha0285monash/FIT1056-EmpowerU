@@ -10,14 +10,14 @@ class Staff(User):
             with open(staff_path, "r", encoding="utf8") as rf:
                 lines = rf.readlines()
             for line in lines:
-                sta_id, email, stored_password, name, role = line.strip().split(",")
-                if uid == sta_id and password == stored_password:
+                sta_id, email, stored_password, name, role, status = line.strip().split(",")
+                if uid == sta_id and password == stored_password and status != "DEACTIVATED":
                     if "sta" in sta_id.lower():
-                        return Staff(sta_id, email, password, name, role)
+                        return Staff(sta_id, email, password, name, role, status)
                     else:
                         return None
 
-    def __init__(self, uid, email, password, name, role):
-        super().__init__(uid, email, password, name)
+    def __init__(self, uid, email, password, name, role, status):
+        super().__init__(uid, email, password, name, status)
         self.role = role
         
