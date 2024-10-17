@@ -10,7 +10,7 @@ class Student(User):
                 lines = rf.readlines()
             for line in lines:
                 stu_id, email, stored_password, name, course, status = line.strip().split(",")
-                if uid == stu_id and password == stored_password and status != "DEACTIVATED":
+                if uid == stu_id and password == stored_password and (status != "DEACTIVATED" or status == None):
                     if "stu" in stu_id.lower():
                         return Student(stu_id, email, password, name, course, status)
                     else:
