@@ -1,0 +1,11 @@
+Task: Watch Lecture 1
+
+Description:
+Watch the recorded lecture on "Introduction to Programming Concepts."
+
+Instructions:
+1. Access the recorded lecture via the course portal.
+2. Take notes on fundamental programming concepts introduced in the lecture.
+3. Prepare questions for the next live session.
+
+Deadline: 21/10/2024, 2:00 AM

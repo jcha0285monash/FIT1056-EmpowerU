@@ -1,0 +1,11 @@
+Task: Complete Lab 1
+
+Description:
+Complete Lab 1, which introduces the basics of Python programming.
+
+Instructions:
+1. Follow the lab instructions provided in the course materials.
+2. Complete each task outlined in the lab and write up your solutions.
+3. Submit your lab report through the course portal.
+
+Deadline: 17/10/2024, 11:59 PM

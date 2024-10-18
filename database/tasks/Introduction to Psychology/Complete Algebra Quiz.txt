@@ -1,0 +1,12 @@
+Task: Complete Algebra Quiz
+
+Description:
+Please complete the Algebra Quiz covering topics from Chapter 3.
+This quiz consists of 20 multiple-choice questions focused on algebraic equations and inequalities.
+
+Instructions:
+1. Access the quiz through the course portal.
+2. Complete the quiz within the given 45-minute time limit.
+3. Submit your answers before the deadline.
+
+Deadline: 18/10/2024, 5:00 PM
