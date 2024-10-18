@@ -11,7 +11,7 @@ class TeacherCoursesMenu(tk.Frame):
         self.teacher_menu = teacher_menu
 
         # all courses heading
-        self.heading = tk.Label(self, text="All Courses", font=("Arial", 18, "bold"))
+        self.heading = tk.Label(self, text="Courses", font=("Arial", 18, "bold"))
         self.heading.pack(pady=20)
 
         # all courses listbox
@@ -35,14 +35,24 @@ class TeacherCoursesMenu(tk.Frame):
         self.load_courses()
 
     def load_courses(self):
-        """Loads the courses from available_courses.txt into the listbox."""
+        """Loads the respective courses from teacher.txt into the listbox."""
         self.courses_listbox.delete(0, tk.END)
-        available_courses_path = "database/available_courses.txt"
-        if os.path.exists(available_courses_path):
-            with open(available_courses_path, "r", encoding="utf-8") as rf:
+        # available_courses_path = "database/available_courses.txt"
+        # if os.path.exists(available_courses_path):
+        #     with open(available_courses_path, "r", encoding="utf-8") as rf:
+        #         lines = rf.readlines()
+        #     for line in lines:
+        #         self.courses_listbox.insert(tk.END, line.strip())
+        
+        teacher_courses_path = f"database/teacher.txt"
+        if os.path.exists(teacher_courses_path):
+            with open(teacher_courses_path, "r", encoding="utf-8") as rf:
                 lines = rf.readlines()
             for line in lines:
-                self.courses_listbox.insert(tk.END, line.strip())
+                # if the respective course is found, add it to the listbox
+                if self.teacher_user.uid in line:
+                    course = line.strip().split(",")[4]
+                    self.courses_listbox.insert(tk.END, course)
 
     def edit_course_content(self):
         """Opens a new window to edit the course and task content."""

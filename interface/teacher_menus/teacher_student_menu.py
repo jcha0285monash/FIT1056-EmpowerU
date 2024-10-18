@@ -8,21 +8,26 @@ class TeacherStudentMenu(tk.Frame):
         self.master = master
         self.teacher_user = teacher_user
         self.teacher_menu = teacher_menu
-
+        
+        style = ttk.Style()
+        style.configure("Treeview", rowheight=60)  # Set the row height to accommodate up to 3 courses
+        
         # create tree view
-        self.tree = ttk.Treeview(self, columns=("UID", "Email", "Password", "Name", "Course"), show="headings")
+        self.tree = ttk.Treeview(self, columns=("UID", "Email", "Name", "Course","Status"), show="headings")
         self.tree.heading("UID", text="UID")
         self.tree.heading("Email", text="Email")
-        self.tree.heading("Password", text="Password")
+        # self.tree.heading("Password", text="Password")
         self.tree.heading("Name", text="Name")
         self.tree.heading("Course", text="Course")
+        self.tree.heading("Status", text="Status")
 
         # define column width and alignment
-        self.tree.column("UID", width=100, anchor=tk.CENTER)
+        self.tree.column("UID", width=80, anchor=tk.CENTER)
         self.tree.column("Email", width=150, anchor=tk.W)
-        self.tree.column("Password", width=100, anchor=tk.W)
+        # self.tree.column("Password", width=100, anchor=tk.W)
         self.tree.column("Name", width=150, anchor=tk.W)
-        self.tree.column("Course", width=100, anchor=tk.W)
+        self.tree.column("Course", width=300, anchor=tk.W)
+        self.tree.column("Status", width=100, anchor=tk.W)
 
         # insert data into the table
         self.load_students()
@@ -32,7 +37,7 @@ class TeacherStudentMenu(tk.Frame):
         self.heading.pack(pady=20)
 
         # position the Treeview
-        self.tree.pack(pady=10)
+        self.tree.pack(pady=1)
 
         # alert variable and label widget
         self.alert_var = tk.StringVar()
@@ -41,7 +46,7 @@ class TeacherStudentMenu(tk.Frame):
 
         # back to home button
         self.back_to_home_button = tk.Button(self, text="Back to Home", command=self.back_to_home_button_clicked)
-        self.back_to_home_button.pack(pady=10)
+        self.back_to_home_button.pack(pady=2)
 
     def load_students(self):
         for item in self.tree.get_children():
@@ -51,7 +56,9 @@ class TeacherStudentMenu(tk.Frame):
             with open(self.student_path, "r", encoding="utf-8") as rf:
                 lines = rf.readlines()
             for line in lines:
-                self.tree.insert("", tk.END, values=line.strip().split(","))
+                data = line.strip().split(",")
+                data[4] = data[4].replace("&", "\n")  # Replace &
+                self.tree.insert("", tk.END, values=(data[0], data[1], data[3], data[4], data[5]))
 
 
     def back_to_home_button_clicked(self):

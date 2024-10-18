@@ -1,4 +1,3 @@
-
 Course: Programming in Python
 
 Course Content:
