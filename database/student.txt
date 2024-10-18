@@ -1,2 +1,1 @@
-stu0001,joel@monash.edu,pass,Joel,Data Structures and Algorithms&Modern World History&,ACTIVE
-stu0002,joonkitloong@gmail.com,123456,Loong Joon Kit,Introduction to Psychology&Introduction to Graphic Design&,ACTIVE
+stu0001,joel@monash.edu,pass,Joel,Programming in Python&Information Security&,ACTIVE

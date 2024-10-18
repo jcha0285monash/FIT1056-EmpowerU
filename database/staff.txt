@@ -1,1 +1,1 @@
-sta1,1,1,1,1
+sta1,empowerustaff@gmail.com,pass,Emily,staff,ACTIVE
