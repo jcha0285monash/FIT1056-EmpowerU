@@ -10,7 +10,7 @@ class Staff(User):
                 lines = rf.readlines()
             for line in lines:
                 sta_id, email, stored_password, name, role, status = line.strip().split(",")
-                if uid == sta_id and password == stored_password and (status != "DEACTIVATED" or status == None):
+                if uid == sta_id and password == stored_password and status == "ACTIVE":
                     if "sta" in sta_id.lower():
                         return Staff(sta_id, email, password, name, role, status)
                     else:

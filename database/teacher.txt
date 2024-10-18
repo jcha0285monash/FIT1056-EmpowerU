@@ -1,1 +1,1 @@
-tea1,teacher@gmail.com,pass,Lee,Data Structures and Algorithms, ACTIVE
+tea1,teacher@gmail.com,pass,Lee,Data Structures and Algorithms,ACTIVE
