@@ -1,0 +1,12 @@
+
+Task: Develop a Security Policy
+
+Description:
+Draft a security policy document for a small business outlining measures for data protection and access control.
+
+Instructions:
+1. Include sections on password management, multi-factor authentication, and data encryption.
+2. The policy should cover physical security, network security, and employee training.
+3. Submit your policy document as a PDF file.
+
+Deadline: 27/10/2024, 11:59 PM

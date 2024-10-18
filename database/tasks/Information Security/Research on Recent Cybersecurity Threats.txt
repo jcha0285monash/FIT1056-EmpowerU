@@ -1,0 +1,13 @@
+
+Task: Research on Recent Cybersecurity Threats
+
+Description:
+Write a 3-4 page report on the most recent cybersecurity threats faced by organizations in 2024.
+
+Instructions:
+1. Research current cybersecurity threats like ransomware, phishing, and advanced persistent threats.
+2. Discuss the methods used in these attacks and the preventive measures organizations can adopt.
+3. Use credible sources and cite them properly.
+4. Submit your report as a PDF document.
+
+Deadline: 22/10/2024, 11:59 PM

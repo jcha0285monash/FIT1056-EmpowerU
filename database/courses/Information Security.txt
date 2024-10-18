@@ -1,0 +1,39 @@
+
+Course: Information Security
+
+Course Content:
+Week 1: Introduction to Information Security
+- What is information security?
+- Key principles: Confidentiality, Integrity, Availability (CIA Triad)
+
+Week 2: Common Threats and Vulnerabilities
+- Malware (viruses, worms, Trojans)
+- Phishing and social engineering
+- Ransomware attacks
+
+Week 3: Cryptography
+- Introduction to encryption and decryption
+- Symmetric vs. asymmetric encryption
+- Digital signatures and certificates
+
+Week 4: Network Security
+- Firewalls and intrusion detection systems (IDS)
+- Virtual Private Networks (VPNs)
+- Secure protocols (HTTPS, SSL/TLS)
+
+Week 5: Access Control and Authentication
+- Multi-factor authentication (MFA)
+- Role-based access control (RBAC)
+- Identity and access management
+
+Week 6: Security Policies and Compliance
+- Developing security policies
+- Compliance standards (ISO, GDPR, HIPAA)
+
+Week 7: Incident Response and Disaster Recovery
+- Steps for responding to security breaches
+- Backup strategies and disaster recovery plans
+
+Week 8: Future of Information Security
+- Emerging threats (AI-driven attacks, quantum computing risks)
+- Security in cloud computing and IoT

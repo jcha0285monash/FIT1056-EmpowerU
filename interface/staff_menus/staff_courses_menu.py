@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import simpledialog, messagebox
 import os
-from interface.staff_menus.editcourse import EditCourseContentPage
 
 class StaffCoursesMenu(tk.Frame):
     def __init__(self, master, staff_user, staff_menu):
@@ -32,10 +31,6 @@ class StaffCoursesMenu(tk.Frame):
 
         self.delete_course_button = tk.Button(self, text="Delete Course", command=self.delete_course)
         self.delete_course_button.pack(pady=5)
-
-        # "Edit Course Content" button to navigate to content editor
-        self.edit_course_content_button = tk.Button(self, text="Edit Course Content", command=self.edit_course_content)
-        self.edit_course_content_button.pack(pady=10)
 
         # back to home button
         self.back_to_home_button = tk.Button(self, text="Back to Home", command=self.back_to_home_button_clicked)
@@ -112,16 +107,6 @@ class StaffCoursesMenu(tk.Frame):
 
                 self.load_courses()
                 self.tasks_listbox.delete(0, tk.END)
-
-    def edit_course_content(self):
-        """Opens a new window to edit the course and task content."""
-        selected_course_index = self.courses_listbox.curselection()
-        if selected_course_index:
-            selected_course = self.courses_listbox.get(selected_course_index)
-            # Hide the current menu and open the edit page
-            self.pack_forget()
-            edit_page = EditCourseContentPage(self.master, selected_course, self)
-            edit_page.pack(fill="both", expand=True)
 
     def back_to_home_button_clicked(self):
         self.master.hide_staff_courses_menu(self)

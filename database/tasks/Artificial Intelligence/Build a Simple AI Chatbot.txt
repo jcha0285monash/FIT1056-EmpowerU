@@ -1,0 +1,12 @@
+
+Task: Build a Simple AI Chatbot
+
+Description:
+Create a basic AI chatbot using Python that can respond to user inputs with predefined answers.
+
+Instructions:
+1. Implement the chatbot using Python's if-else statements or machine learning libraries like `nltk`.
+2. The chatbot should respond to simple questions such as "What is your name?" and "How are you?"
+3. Submit your Python script as a .py file.
+
+Deadline: 29/10/2024, 11:59 PM

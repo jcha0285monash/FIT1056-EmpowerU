@@ -1,0 +1,38 @@
+
+Course: Programming in Python
+
+Course Content:
+Week 1: Introduction to Python
+- Python history and philosophy
+- Installing Python and setting up the environment
+- Basic syntax (variables, data types)
+
+Week 2: Control Flow
+- Conditional statements (if, elif, else)
+- Loops (for, while loops)
+
+Week 3: Functions and Modules
+- Defining and using functions
+- Importing and using libraries
+- Writing and organizing Python modules
+
+Week 4: Data Structures
+- Lists, tuples, sets, and dictionaries
+- List comprehension
+- Basic operations with data structures
+
+Week 5: File Handling
+- Reading and writing files in Python
+- Working with text and CSV files
+
+Week 6: Object-Oriented Programming (OOP)
+- Classes and objects
+- Inheritance and polymorphism
+
+Week 7: Error Handling and Exceptions
+- Try, except, and finally blocks
+- Handling common Python exceptions
+
+Week 8: Advanced Topics
+- Working with libraries like `numpy` and `pandas`
+- Introduction to web frameworks (Django/Flask)
