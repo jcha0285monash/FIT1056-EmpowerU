@@ -1,11 +1,15 @@
 import sys
 import os
+sys.path.append(".../app")
+
+print(sys.path)
 
 import pytest
-
-from app.staff import Staff
+from app.user import User
 from app.student import Student
+from app.staff import Staff
 from app.teacher import Teacher
+
 
 def test_authenticate():
     # try logging on with correct credentials
@@ -21,4 +25,3 @@ def test_authenticate():
     assert test_authenticate == None
     test_authenticate = Staff.authenticate("sta123", "password123")
     assert test_authenticate == None
-test_authenticate()
