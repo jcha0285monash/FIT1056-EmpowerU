@@ -96,7 +96,7 @@ class RegisterMenu(tk.Frame):
                 self.students.append(student_obj)
             return self.students
 
-    def register_student(self, name, email, password, course="", status=""):
+    def register_student(self, name, email, password, course="", status="ACTIVE"):
         student_path = "./database/student.txt"
         stu_id = "stu" + str(len(self.students) + 1).zfill(4)
         if os.path.exists(student_path):
