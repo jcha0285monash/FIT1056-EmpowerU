@@ -13,8 +13,6 @@ class Student(User):
                 
                 if course == None:
                     course = None
-                if status == None :
-                    status = None
                     
                 if uid == stu_id and password == stored_password and status == "ACTIVE":
                     if "stu" in stu_id.lower():

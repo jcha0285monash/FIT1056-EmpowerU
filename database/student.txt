@@ -1,1 +1,1 @@
-stu0001,joel@monash.edu,pass,Joel,,ACTIVE
+stu0001,joel@monash.edu,pass,Joel,Data Structures and Algorithms&Modern World History&, ACTIVE

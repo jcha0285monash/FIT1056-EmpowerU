@@ -48,7 +48,7 @@ class AvailableCoursesMenu(tk.Frame):
             lines = rf.readlines()
         for i in range(len(lines)):
             if lines[i].startswith(self.student_user.uid):
-                lines[i] = f"{self.student_user.uid},{self.student_user.email},{self.student_user.password},{self.student_user.name},{self.student_user.course}\n"
+                lines[i] = f"{self.student_user.uid},{self.student_user.email},{self.student_user.password},{self.student_user.name},{self.student_user.course}, {self.student_user.status}\n"
                 break
         with open(student_database_path, "w", encoding="utf-8") as wf:
             wf.writelines(lines)

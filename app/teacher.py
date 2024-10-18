@@ -10,7 +10,7 @@ class Teacher(User):
                 lines = rf.readlines()
             for line in lines:
                 tea_id, email, stored_password, name, course, status = line.strip().split(",")
-                if uid == tea_id and password == stored_password and (status != "DEACTIVATED" or status == None):
+                if uid == tea_id and password == stored_password and status == "ACTIVE":
                     if "tea" in tea_id.lower():
                         return Teacher(tea_id, email, password, name, course, status)
                     else:
