@@ -16,7 +16,6 @@ class TeacherStudentMenu(tk.Frame):
         self.tree = ttk.Treeview(self, columns=("UID", "Email", "Name", "Course","Status"), show="headings")
         self.tree.heading("UID", text="UID")
         self.tree.heading("Email", text="Email")
-        # self.tree.heading("Password", text="Password")
         self.tree.heading("Name", text="Name")
         self.tree.heading("Course", text="Course")
         self.tree.heading("Status", text="Status")
@@ -24,7 +23,6 @@ class TeacherStudentMenu(tk.Frame):
         # define column width and alignment
         self.tree.column("UID", width=80, anchor=tk.CENTER)
         self.tree.column("Email", width=150, anchor=tk.W)
-        # self.tree.column("Password", width=100, anchor=tk.W)
         self.tree.column("Name", width=150, anchor=tk.W)
         self.tree.column("Course", width=300, anchor=tk.W)
         self.tree.column("Status", width=100, anchor=tk.W)
@@ -57,7 +55,7 @@ class TeacherStudentMenu(tk.Frame):
                 lines = rf.readlines()
             for line in lines:
                 data = line.strip().split(",")
-                data[4] = data[4].replace("&", "\n")  # Replace &
+                data[4] = data[4].replace("&", "\n")  # Replace & with a new line
                 self.tree.insert("", tk.END, values=(data[0], data[1], data[3], data[4], data[5]))
 
 
