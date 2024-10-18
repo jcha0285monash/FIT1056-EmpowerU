@@ -1,0 +1,13 @@
+
+Task: Write a Python Script
+
+Description:
+Write a Python script that takes a list of numbers and returns the sum, average, and the largest number in the list.
+
+Instructions:
+1. Create a Python function that accepts a list of numbers as input.
+2. Implement logic to calculate the sum, average, and largest number in the list.
+3. Ensure your code is properly commented and follows best practices.
+4. Submit your Python script as a .py file.
+
+Deadline: 21/10/2024, 11:59 PM

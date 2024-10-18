@@ -1,0 +1,13 @@
+
+Task: Build a Simple Calculator in Python
+
+Description:
+Create a basic calculator that performs addition, subtraction, multiplication, and division operations.
+
+Instructions:
+1. Create a Python program that asks the user to input two numbers and an operator (+, -, *, /).
+2. Based on the input, the program should perform the corresponding calculation and display the result.
+3. Ensure the program handles division by zero errors gracefully.
+4. Submit your Python script as a .py file.
+
+Deadline: 25/10/2024, 11:59 PM
