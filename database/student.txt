@@ -1,2 +1,2 @@
 stu0001,joel@monash.edu,pass,Joel,Programming in Python&Information Security&Artificial Intelligence&,ACTIVE
-stu0002,ahhh@gmail.com,123,GuoYi,,ACTIVE
+stu0002,ahhh@gmail.com,123,Gong Ya,Information Security

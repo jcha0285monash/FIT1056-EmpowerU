@@ -1,8 +1,6 @@
 import sys
 import os
-sys.path.append(".../app")
-
-print(sys.path)
+sys.path.append("./app")
 
 import pytest
 from app.user import User
@@ -25,3 +23,4 @@ def test_authenticate():
     assert test_authenticate == None
     test_authenticate = Staff.authenticate("sta123", "password123")
     assert test_authenticate == None
+    

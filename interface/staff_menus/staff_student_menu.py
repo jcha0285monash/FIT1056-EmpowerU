@@ -9,6 +9,9 @@ class StaffStudentMenu(tk.Frame):
         self.staff_user = staff_user
         self.staff_menu = staff_menu
 
+        style = ttk.Style()
+        style.configure("Treeview", rowheight=47)  # Set the row height to accommodate up to 3 courses
+
         # create tree view
         self.tree = ttk.Treeview(self, columns=("UID", "Email", "Password", "Name", "Course"), show="headings")
         self.tree.heading("UID", text="UID")
@@ -18,11 +21,11 @@ class StaffStudentMenu(tk.Frame):
         self.tree.heading("Course", text="Course")
 
         # define column width and alignment
-        self.tree.column("UID", width=100, anchor=tk.CENTER)
+        self.tree.column("UID", width=80, anchor=tk.CENTER)
         self.tree.column("Email", width=150, anchor=tk.W)
         self.tree.column("Password", width=100, anchor=tk.W)
         self.tree.column("Name", width=150, anchor=tk.W)
-        self.tree.column("Course", width=100, anchor=tk.W)
+        self.tree.column("Course", width=150, anchor=tk.W)
 
         # insert data into the table
         self.load_students()
@@ -32,7 +35,7 @@ class StaffStudentMenu(tk.Frame):
         self.heading.pack(pady=20)
 
         # position the Treeview
-        self.tree.pack(pady=10)
+        self.tree.pack(pady=1)
 
         # alert variable and label widget
         self.alert_var = tk.StringVar()
@@ -63,7 +66,9 @@ class StaffStudentMenu(tk.Frame):
             with open(self.student_path, "r", encoding="utf-8") as rf:
                 lines = rf.readlines()
             for line in lines:
-                self.tree.insert("", tk.END, values=line.strip().split(","))
+                values = line.strip().split(",")
+                values[4] = values[4].replace("&", "\n")  # Replace & with a new line
+                self.tree.insert("", tk.END, values=values)
 
     def edit_student_button_clicked(self):
         selected_data = self.tree.focus()
