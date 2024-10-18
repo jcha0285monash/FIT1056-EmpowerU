@@ -1,4 +1,3 @@
-Introduction to Psychology
-Data Structures and Algorithms
-Modern World History
-Introduction to Graphic Design
+Programming in Python
+Information Security
+Artificial Intelligence
