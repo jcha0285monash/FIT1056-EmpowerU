@@ -64,7 +64,7 @@ class HomePage(tk.Frame):
 
         if "stu" in uid:
             # If the entered UID is a student, create a Student object and call the login method
-            student_user = Student.authenticate(uid, password)
+            student_user = Student.authenticate(uid, password, ".")
             if isinstance(student_user, Student):
                 # If the entered UID is a student, call the student_home method
                 self.master.hide_homepage()
@@ -75,7 +75,7 @@ class HomePage(tk.Frame):
                 self.alert_var.set("Invalid UID or Password")
         elif "tea" in uid:
             # If the entered UID is a teacher, create a Teacher object and call the login method
-            teacher_user = Teacher.authenticate(uid, password)
+            teacher_user = Teacher.authenticate(uid, password, '.')
             if isinstance(teacher_user, Teacher):
             # If the entered UID is a teacher, call the teacher_home method
                 self.master.hide_homepage()
@@ -86,7 +86,7 @@ class HomePage(tk.Frame):
                 self.alert_var.set("Invalid UID or Password")
         elif "sta" in uid:
             # If the entered UID is a staff, create a Staff object and call the login method
-            staff_user = Staff.authenticate(uid, password)
+            staff_user = Staff.authenticate(uid, password, '.')
             if isinstance(staff_user, Staff):
                 # If the entered UID is a staff, call the staff_home method
                 self.master.hide_homepage()

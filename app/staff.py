@@ -3,8 +3,8 @@ import os
 
 class Staff(User):
     @staticmethod
-    def authenticate(uid, password):
-        staff_path = "./database/staff.txt"
+    def authenticate(uid, password, filepath):
+        staff_path = f"{filepath}/database/staff.txt"
         if os.path.exists(staff_path):
             with open(staff_path, "r", encoding="utf8") as rf:
                 lines = rf.readlines()
