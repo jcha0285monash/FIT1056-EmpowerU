@@ -236,6 +236,7 @@ class StaffUserMenu(tk.Frame):
             self.alert_label_edit.config(fg="red")
             self.alert_var_edit.set("UID already exists")
             return
+        #* User edited in Staff Class
         Staff.edit_user(uid, email, password, name, unique, self.user_path, self.selected_line, self.selected_user_status)
         self.load_users()
         self.alert_label_edit.config(fg="green")
