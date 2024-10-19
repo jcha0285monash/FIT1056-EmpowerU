@@ -172,21 +172,29 @@ class EditCourseContentPage(tk.Frame):
 
 
     def delete_task(self):
-        """Deletes the selected task from the task file."""
+        """Deletes the selected task by removing the corresponding task file."""
         selected_task_index = self.tasks_listbox.curselection()
         if selected_task_index:
-            selected_task = self.tasks_listbox.get(selected_task_index)
+            # Extract task name without deadline
+            selected_task = self.tasks_listbox.get(selected_task_index).split(" - ")[0]  # Get only the task name
+            
+            # Ask for confirmation before deleting
             confirmation = messagebox.askyesno("Delete Task", f"Are you sure you want to delete the task '{selected_task}'?")
+            
             if confirmation:
-                tasks_path = f"database/tasks/{self.selected_course}/{selected_task}.txt"
-                with open(tasks_path, "r", encoding="utf-8") as rf:
-                    tasks = rf.readlines()
-                tasks = [task for task in tasks if task.strip() != selected_task]
+                # Path to the task file
+                task_file_path = f"database/tasks/{self.selected_course}/{selected_task}.txt"
+                
+                # Check if the task file exists and delete it
+                if os.path.exists(task_file_path):
+                    os.remove(task_file_path)  # Delete the .txt file
+                    messagebox.showinfo("Task Deleted", f"The task '{selected_task}' has been successfully deleted.")
+                else:
+                    messagebox.showerror("Task Not Found", f"The task '{selected_task}' could not be found.")
 
-                with open(tasks_path, "w", encoding="utf-8") as wf:
-                    wf.writelines(tasks)
+                # Reload the tasks to update the listbox
+                self.load_tasks(self.selected_course)  # Use the correct course when reloading tasks
 
-                self.load_tasks(None)
 
     def edit_task_content(self):
         """Opens a new page to edit the selected task."""
