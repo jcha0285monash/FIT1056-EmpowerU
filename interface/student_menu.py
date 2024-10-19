@@ -55,14 +55,19 @@ class StudentMenu(tk.Frame):
         self.master.show_available_courses_menu(available_courses_menu)
 
     def view_course_content(self):
-        selected_course = self.courses_list.get(tk.ACTIVE)
-        if selected_course:
-            # Transition to C_homepage with the selected course
-            self.master.hide_student_menu(self)
-            
-            # Create the course homepage, passing the selected course
-            course_details_page = CourseDetailsPage(self.master, selected_course, self.student_user, self)
-            course_details_page.pack(fill="both", expand=True) 
+        if self.courses_list.curselection():
+            selected_course = self.courses_list.get(tk.ACTIVE)
+            if selected_course:
+                # Transition to C_homepage with the selected course
+                self.master.hide_student_menu(self)
+                self.alert_var.set("")
+                # Create the course homepage, passing the selected course
+                course_details_page = CourseDetailsPage(self.master, selected_course, self.student_user, self)
+                course_details_page.pack(fill="both", expand=True)  
+                
+            else:
+                # Show an alert if no course is selected
+                self.alert_var.set("Please select a course to view its content.")
         else:
             # Show an alert if no course is selected
             self.alert_var.set("Please select a course to view its content.")
