@@ -286,7 +286,7 @@ class StaffStaffMenu(tk.Frame):
             if os.path.exists(self.staff_path):
                 with open(self.staff_path, "r", encoding="utf-8") as rf:
                     data = rf.readlines()
-                data[self.selected_line] = staff_details[0] + "," + staff_details[1] + "," + staff_details[2] + "," + staff_details[3] + "," + staff_details[4] + ",\n"
+                data[self.selected_line] = staff_details[0] + "," + staff_details[1] + "," + staff_details[2] + "," + staff_details[3] + "," + staff_details[4] + ",ACTIVE\n"
                 with open(self.staff_path, "w", encoding="utf-8") as wf:
                     wf.writelines(data)
                 self.load_staffs()

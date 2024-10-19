@@ -277,7 +277,7 @@ class StaffStudentMenu(tk.Frame):
             if os.path.exists(self.student_path):
                 with open(self.student_path, "r", encoding="utf-8") as rf:
                     data = rf.readlines()
-                data[self.selected_line] = student_details[0] + "," + student_details[1] + "," + student_details[2] + "," + student_details[3] + "," + student_details[4] + ",\n"
+                data[self.selected_line] = student_details[0] + "," + student_details[1] + "," + student_details[2] + "," + student_details[3] + "," + student_details[4] + ",ACTIVE\n"
                 with open(self.student_path, "w", encoding="utf-8") as wf:
                     wf.writelines(data)
                 self.load_students()
