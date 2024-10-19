@@ -10,6 +10,9 @@ class StaffStudentMenu(tk.Frame):
         self.staff_user = staff_user
         self.staff_menu = staff_menu
 
+        style = ttk.Style()
+        style.configure("Treeview", rowheight=47)  # Change row height to fit 3 courses
+
         # create tree view
         self.tree = ttk.Treeview(self, columns=("UID", "Email", "Password", "Name", "Course", "Status"), show="headings")
         self.tree.heading("UID", text="UID")
@@ -24,39 +27,39 @@ class StaffStudentMenu(tk.Frame):
         self.tree.column("Email", width=150, anchor=tk.W)
         self.tree.column("Password", width=100, anchor=tk.W)
         self.tree.column("Name", width=150, anchor=tk.W)
-        self.tree.column("Course", width=100, anchor=tk.W)
-        self.tree.column("Status", width=100, anchor=tk.W)
+        self.tree.column("Course", width=200, anchor=tk.W)
+        self.tree.column("Status", width=85, anchor=tk.CENTER)
 
         # insert data into the table
         self.load_students()
 
         # all student heading
         self.heading = tk.Label(self, text="All Students", font=("Arial", 18, "bold"))
-        self.heading.pack(pady=20)
+        self.heading.grid(row=0, columnspan=4, padx=20, pady=10)
 
         # position the Treeview
-        self.tree.pack(pady=10)
+        self.tree.grid(row=1, column=0, columnspan=4, padx=10, pady=10)
 
         # alert variable and label widget
         self.alert_var = tk.StringVar()
         self.alert_label = tk.Label(self, textvariable=self.alert_var, font=("Arial", 12))
-        self.alert_label.pack(pady=10)
+        self.alert_label.grid(row=2, column=0, columnspan=4, padx=10, pady=10)
 
         # edit student button
         self.edit_student_button = tk.Button(self, text="Edit Student Details", command=self.edit_student_button_clicked)
-        self.edit_student_button.pack(pady=10)
+        self.edit_student_button.grid(row=3, column=0, padx=10, pady=10)
 
         # add student button
         self.add_student_button = tk.Button(self, text="Add Student", command=self.add_student_button_clicked)
-        self.add_student_button.pack(pady=10)
+        self.add_student_button.grid(row=3, column=1, padx=10, pady=10)
 
         # delete student button
         self.delete_student_button = tk.Button(self, text="Activate/Deactivate Student", command=self.activate_deactivate_student_button_clicked)
-        self.delete_student_button.pack(pady=10)
+        self.delete_student_button.grid(row=3, column=2, padx=10, pady=10)
 
         # back to home button
         self.back_to_home_button = tk.Button(self, text="Back to Home", command=self.back_to_home_button_clicked)
-        self.back_to_home_button.pack(pady=10)
+        self.back_to_home_button.grid(row=3, column=3, padx=10, pady=10)
 
     def edit_student_button_clicked(self):
         selected_data = self.tree.focus()
@@ -74,10 +77,11 @@ class StaffStudentMenu(tk.Frame):
         self.selected_student_password = student_details[2]
         self.selected_student_name = student_details[3]
         self.selected_student_course = student_details[4]
+        self.selected_student_status = student_details[5]
         student_edit_window = tk.Toplevel(self)
         student_edit_window.grab_set()
         student_edit_window.title(f"Edit Student Details")
-        student_edit_window.geometry("610x390")
+        student_edit_window.geometry("610x420")
         
         # student uid label
         student_uid_label = tk.Label(student_edit_window, text="Student UID:", font=("Arial", 12))
@@ -119,9 +123,9 @@ class StaffStudentMenu(tk.Frame):
         student_course_label = tk.Label(student_edit_window, text="Student Course:", font=("Arial", 12))
         student_course_label.grid(row=4, column=0, padx=10, pady=10)
 
-        # student course entry
-        self.student_course_edit_entry = tk.Entry(student_edit_window, width=50)
-        self.student_course_edit_entry.insert(0, self.selected_student_course)
+        # student course text widget entry
+        self.student_course_edit_entry = tk.Text(student_edit_window, width=50, height=5)
+        self.student_course_edit_entry.insert(tk.END, self.selected_student_course)
         self.student_course_edit_entry.grid(row=4, column=1, padx=10, pady=10)
 
         # alert variable and label widget
@@ -202,7 +206,12 @@ class StaffStudentMenu(tk.Frame):
         name = self.student_name_edit_entry.get()
         email = self.student_email_edit_entry.get()
         password = self.student_password_edit_entry.get()
-        course = self.student_course_edit_entry.get()
+        new_course = self.student_course_edit_entry.get("1.0", tk.END).strip().split("\n")
+
+        # join courses in text widget with &
+        if len(new_course) == 1:
+            new_course[0] += "&"
+        course = "&".join(new_course)
 
         if uid == "" or name == "" or email == "" or password == "":
             self.alert_var_edit.set("Please fill in all fields")
@@ -219,7 +228,7 @@ class StaffStudentMenu(tk.Frame):
             self.alert_label_edit.config(fg="red")
             self.alert_var_edit.set("UID already exists")
             return
-        student_details = uid + "," + email + "," + password + "," + name + "," + course + ","
+        student_details = uid + "," + email + "," + password + "," + name + "," + course + "," + self.selected_student_status
         if os.path.exists(self.student_path):
             with open(self.student_path, "r", encoding="utf-8") as rf:
                 data = rf.readlines()
@@ -273,11 +282,12 @@ class StaffStudentMenu(tk.Frame):
         parent = self.tree.parent(selected_data)
         children = self.tree.get_children(parent)
         self.selected_line = children.index(selected_data)
+        student_courses = student_details[4].replace("\n", "&")
         if student_details[5] == "DEACTIVATED":
             if os.path.exists(self.student_path):
                 with open(self.student_path, "r", encoding="utf-8") as rf:
                     data = rf.readlines()
-                data[self.selected_line] = student_details[0] + "," + student_details[1] + "," + student_details[2] + "," + student_details[3] + "," + student_details[4] + ",ACTIVE\n"
+                data[self.selected_line] = student_details[0] + "," + student_details[1] + "," + student_details[2] + "," + student_details[3] + "," + student_courses + ",ACTIVE\n"
                 with open(self.student_path, "w", encoding="utf-8") as wf:
                     wf.writelines(data)
                 self.load_students()
@@ -288,7 +298,7 @@ class StaffStudentMenu(tk.Frame):
         if os.path.exists(self.student_path):
             with open(self.student_path, "r", encoding="utf-8") as rf:
                 data = rf.readlines()
-            data[self.selected_line] = student_details[0] + "," + student_details[1] + "," + student_details[2] + "," + student_details[3] + "," + student_details[4] + ",DEACTIVATED\n"
+            data[self.selected_line] = student_details[0] + "," + student_details[1] + "," + student_details[2] + "," + student_details[3] + "," + student_courses + ",DEACTIVATED\n"
             with open(self.student_path, "w", encoding="utf-8") as wf:
                 wf.writelines(data)
             self.load_students()
@@ -299,12 +309,14 @@ class StaffStudentMenu(tk.Frame):
     def load_students(self):
         for item in self.tree.get_children():
             self.tree.delete(item)
-        self.student_path = "database/student.txt"
+        self.student_path = "./database/student.txt"
         if os.path.exists(self.student_path):
             with open(self.student_path, "r", encoding="utf-8") as rf:
                 lines = rf.readlines()
             for line in lines:
-                self.tree.insert("", tk.END, values=line.strip().split(","))
+                values = line.strip().split(",")
+                values[4] = values[4].replace("&", "\n")
+                self.tree.insert("", tk.END, values=values)
 
     def import_student(self):
         self.student=[]
