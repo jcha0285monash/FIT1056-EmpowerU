@@ -88,3 +88,19 @@ def test_edit_user():
     assert user.uid == "sta2"
     assert user.email == "editedEmail@gmail.com"
     assert user.name == "Eddy"
+
+#* Negative testing for authentication
+def test_authenticate_negative():
+    """
+    This test will check if the system will return None if the user is not found.
+    """
+    test_authenticate = Student.authenticate("stu0001", "wrongpass", "..")
+    assert test_authenticate == None
+    
+    test_authenticate = Staff.authenticate("sta1", "wrongpass", "..")
+    assert test_authenticate == None
+    
+    test_authenticate = Teacher.authenticate("tea1", "wrongpass", "..")
+    assert test_authenticate == None
+    
+    
