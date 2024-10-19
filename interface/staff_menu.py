@@ -1,8 +1,6 @@
 import tkinter as tk
 from interface.staff_menus.staff_courses_menu import StaffCoursesMenu
-from interface.staff_menus.staff_staff_menu import StaffStaffMenu
-from interface.staff_menus.staff_student_menu import StaffStudentMenu
-from interface.staff_menus.staff_teacher_menu import StaffTeacherMenu
+from interface.staff_menus.staff_user_menu import StaffUserMenu
 
 class StaffMenu(tk.Frame):
     def __init__(self, master, staff_user):
@@ -36,18 +34,18 @@ class StaffMenu(tk.Frame):
 
     def view_students_button_clicked(self):
         self.master.hide_staff_menu(self)
-        staff_student_menu = StaffStudentMenu(self.master, self.staff_user, self)
-        self.master.show_staff_student_menu(staff_student_menu)
+        staff_user_menu = StaffUserMenu(self.master, self.staff_user, self, "student")
+        self.master.show_staff_user_menu(staff_user_menu)
 
     def view_teachers_button_clicked(self):
         self.master.hide_staff_menu(self)
-        staff_teacher_menu = StaffTeacherMenu(self.master, self.staff_user, self)
-        self.master.show_staff_teacher_menu(staff_teacher_menu)
+        staff_user_menu = StaffUserMenu(self.master, self.staff_user, self, "teacher")
+        self.master.show_staff_user_menu(staff_user_menu)
 
     def view_staff_button_clicked(self):
         self.master.hide_staff_menu(self)
-        staff_staff_menu = StaffStaffMenu(self.master, self.staff_user, self)
-        self.master.show_staff_staff_menu(staff_staff_menu)
+        staff_user_menu = StaffUserMenu(self.master, self.staff_user, self, "staff")
+        self.master.show_staff_user_menu(staff_user_menu)
 
     def view_courses_button_clicked(self):
         self.master.hide_staff_menu(self)

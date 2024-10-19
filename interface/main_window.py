@@ -65,26 +65,10 @@ class EmpowerU(tk.Tk):
         staff_courses_menu = staffcoursesmenu
         staff_courses_menu.place_forget()
 
-    def show_staff_staff_menu(self, staffstaffmenu):
-        staff_staff_menu = staffstaffmenu
-        staff_staff_menu.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+    def show_staff_user_menu(self, staffusermenu):
+        staff_user_menu = staffusermenu
+        staff_user_menu.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
-    def hide_staff_staff_menu(self, staffstaffmenu):
-        staff_staff_menu = staffstaffmenu
-        staff_staff_menu.place_forget()
-
-    def show_staff_student_menu(self, staffstudentmenu):
-        staff_student_menu = staffstudentmenu
-        staff_student_menu.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
-
-    def hide_staff_student_menu(self, staffstudentmenu):
-        staff_student_menu = staffstudentmenu
-        staff_student_menu.place_forget()
-
-    def show_staff_teacher_menu(self, staffteachermenu):
-        staff_teacher_menu = staffteachermenu
-        staff_teacher_menu.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
-
-    def hide_staff_teacher_menu(self, staffteachermenu):
-        staff_teacher_menu = staffteachermenu
-        staff_teacher_menu.place_forget()
+    def hide_staff_user_menu(self, staffusermenu):
+        staff_user_menu = staffusermenu
+        staff_user_menu.place_forget()
