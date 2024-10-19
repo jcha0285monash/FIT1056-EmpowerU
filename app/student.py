@@ -29,9 +29,9 @@ class Student:
                         return None
 
     @staticmethod
-    def import_students():
+    def import_students(filepath=".."):
         students = []
-        student_path = "./database/student.txt"
+        student_path = f"{filepath}/database/student.txt"
         if os.path.exists(student_path):
             with open(student_path, "r", encoding="utf8") as rf:
                 lines = rf.readlines()

@@ -1,2 +1,4 @@
 stu0001,joel@monash.edu,pass,Joel,Programming in Python&Artificial Intelligence&,ACTIVE
 stu0002,ahhh@gmail.com,123,Gong Ya,Artificial Intelligence&Programming in Python,ACTIVE
+stu0003,mark@gmail.com,pass,Mark,Information Security&,ACTIVE
+stu0004,noah@gmail.com,pass,Noah,Information Security&,ACTIVE
