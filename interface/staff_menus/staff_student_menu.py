@@ -88,7 +88,7 @@ class StaffStudentMenu(tk.Frame):
         student_user_course = student_details[4]
         self.student_edit_window = tk.Toplevel(self)
         self.student_edit_window.title(f"Edit Student Details")
-        self.student_edit_window.geometry("610x350")
+        self.student_edit_window.geometry("610x500")
         
         # student uid label
         student_uid_label = tk.Label(self.student_edit_window, text="Student UID:", font=("Arial", 12))
@@ -130,10 +130,14 @@ class StaffStudentMenu(tk.Frame):
         student_course_label = tk.Label(self.student_edit_window, text="Student Course:", font=("Arial", 12))
         student_course_label.grid(row=4, column=0, padx=10, pady=10)
 
-        # student course entry
-        self.student_course_entry = tk.Entry(self.student_edit_window, width=50)
-        self.student_course_entry.insert(0, student_user_course)
-        self.student_course_entry.grid(row=4, column=1, padx=10, pady=10)
+        # student course text widget
+        self.student_course_text = tk.Text(self.student_edit_window, width=50, height=10)
+        self.student_course_text.grid(row=4, column=1, padx=10, pady=10)
+
+        # Insert each course into the text widget
+        courses = student_user_course.split("&")
+        for course in courses:
+            self.student_course_text.insert(tk.END, course + "\n")
 
         # save button
         save_button = tk.Button(self.student_edit_window, text="Save", command=lambda:[self.save_button_clicked(selected_line)])
@@ -199,7 +203,18 @@ class StaffStudentMenu(tk.Frame):
         back_button.grid(row=7, column=0, columnspan=2, padx=10, pady=10)
 
     def save_button_clicked(self, selected_line):
-        student_details = self.student_uid_entry.get() + "," + self.student_email_entry.get() + "," + self.student_password_entry.get() + "," + self.student_name_entry.get() + "," + self.student_course_entry.get()
+        courses = self.student_course_text.get("1.0", tk.END).strip().split("\n")
+        # ammend back the & separator for each course for the txt file
+        joined_courses = "&".join(courses)
+
+        student_details = (
+            self.student_uid_entry.get() + "," +
+            self.student_email_entry.get() + "," +
+            self.student_password_entry.get() + "," +
+            self.student_name_entry.get() + "," +
+            joined_courses
+        )
+
         if os.path.exists(self.student_path):
             with open(self.student_path, "r", encoding="utf-8") as rf:
                 data = rf.readlines()
@@ -207,6 +222,7 @@ class StaffStudentMenu(tk.Frame):
             with open(self.student_path, "w", encoding="utf-8") as wf:
                 wf.writelines(data)
             self.load_students()
+
 
     def register_button_clicked(self):
         pass
