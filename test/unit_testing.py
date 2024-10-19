@@ -45,20 +45,21 @@ def test_authenticate():
     assert "Programming in Python" in test_load_courses
     assert "Introduction to Information Security" in test_load_courses
     assert "Artificial Intelligence" in test_load_courses
-    
-    """
-        def login_button_clicked(self):
-        # Get the entered UID and password
-        uid = self.uid_var.get()
-        password = self.password_var.get()
+   
+test_authenticate()    
+"""
+def login_button_clicked(self):
+# Get the entered UID and password
+uid = self.uid_var.get()
+password = self.password_var.get()
 
-        if "stu" in uid:
-            # If the entered UID is a student, create a Student object and call the login method
-            student_user = Student.authenticate(uid, password, ".")
-            if isinstance(student_user, Student):
-                # If the entered UID is a student, call the student_home method
-                self.master.hide_homepage()
-                studentmenu = StudentMenu(self.master, student_user)
-                self.master.show_student_menu(studentmenu)
-                self.clear_input()
-    """
+if "stu" in uid:
+    # If the entered UID is a student, create a Student object and call the login method
+    student_user = Student.authenticate(uid, password, ".")
+    if isinstance(student_user, Student):
+        # If the entered UID is a student, call the student_home method
+        self.master.hide_homepage()
+        studentmenu = StudentMenu(self.master, student_user)
+        self.master.show_student_menu(studentmenu)
+        self.clear_input()
+"""

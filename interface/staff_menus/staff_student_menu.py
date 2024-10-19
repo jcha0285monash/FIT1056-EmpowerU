@@ -204,9 +204,13 @@ class StaffStudentMenu(tk.Frame):
 
     def save_button_clicked(self, selected_line):
         courses = self.student_course_text.get("1.0", tk.END).strip().split("\n")
-        # ammend back the & separator for each course for the txt file
+        # Handle the case where there is only one course
+        if len(courses) == 1:
+            courses[0] += "&"
+        
+        # Join the courses with &
         joined_courses = "&".join(courses)
-
+        
         student_details = (
             self.student_uid_entry.get() + "," +
             self.student_email_entry.get() + "," +
