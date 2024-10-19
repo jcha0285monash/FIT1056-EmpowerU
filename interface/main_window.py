@@ -1,5 +1,4 @@
 import tkinter as tk
-# import ttkbootstrap as ttk
 from interface.home_page import HomePage
 
 class EmpowerU(tk.Tk):

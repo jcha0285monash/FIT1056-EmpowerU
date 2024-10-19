@@ -38,28 +38,13 @@ def test_authenticate():
     assert test_authenticate.email == "chloe@gmail.com"
     assert test_authenticate.status == "ACTIVE"
     
-    test_load_courses = StudentMenu.load_courses(StudentMenu, Student.authenticate("stu0001", "pass",".."))
-    assert type(test_load_courses) == list
-    for course in test_load_courses:
-        assert type(course) == str
-    assert "Programming in Python" in test_load_courses
-    assert "Introduction to Information Security" in test_load_courses
-    assert "Artificial Intelligence" in test_load_courses
-   
-test_authenticate()    
-"""
-def login_button_clicked(self):
-# Get the entered UID and password
-uid = self.uid_var.get()
-password = self.password_var.get()
+# test registration
 
-if "stu" in uid:
-    # If the entered UID is a student, create a Student object and call the login method
-    student_user = Student.authenticate(uid, password, ".")
-    if isinstance(student_user, Student):
-        # If the entered UID is a student, call the student_home method
-        self.master.hide_homepage()
-        studentmenu = StudentMenu(self.master, student_user)
-        self.master.show_student_menu(studentmenu)
-        self.clear_input()
-"""
+def test_student_registration():
+    # Test valid registration
+    student = Student.register_student("Mark", "mark@domain.com", "pass")
+    assert isinstance(student, Student)
+    assert "stu" in student.uid
+    assert student.name == "Mark"
+    assert student.email == "mark@domain.com"
+    

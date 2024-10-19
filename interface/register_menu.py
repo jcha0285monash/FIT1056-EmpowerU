@@ -73,44 +73,16 @@ class RegisterMenu(tk.Frame):
         elif name == "" or email == "" or password == "" or confirm_password == "":
             self.alert_label.config(fg="red")
             self.alert_var.set("Please fill in all fields")
-        elif self.validate_email(email):
+        elif Student.validate_email(email):
             self.alert_label.config(fg="red")
             self.alert_var.set("Email already exists")
         elif "@" not in email or "." not in email:
             self.alert_label.config(fg="red")
             self.alert_var.set("Invalid email")
         else:
-            stu_id = self.register_student(name, email, password)
+            new_student = Student.register_student(name, email, password)
             self.alert_label.config(fg="green")
-            self.alert_var.set(f"Registration successful.\nPlease log in with uid {stu_id}.")
-
-    def import_students(self):
-        self.students=[]
-        student_path = "./database/student.txt"
-        if os.path.exists(student_path):
-            with open(student_path, "r", encoding="utf8") as rf:
-                lines = rf.readlines()
-            for line in lines:
-                stu_id, email, password, name, course, status = line.strip().split(",")
-                student_obj = Student(stu_id, email, password, name, course, status)
-                self.students.append(student_obj)
-            return self.students
-
-    def register_student(self, name, email, password, course="", status="ACTIVE"):
-        student_path = "./database/student.txt"
-        stu_id = "stu" + str(len(self.students) + 1).zfill(4)
-        if os.path.exists(student_path):
-            with open(student_path, "a", encoding="utf8") as f:
-                new_student = f"{stu_id},{email},{password},{name},{course},{status}"
-                f.write(new_student + "\n")
-            return stu_id
-
-    def validate_email(self, email):
-        self.import_students()
-        for student in self.students:
-            if student.email == email:
-                return True
-        return False
+            self.alert_var.set(f"Registration successful.\nPlease log in with uid {new_student.uid}.")
 
     def back_to_homepage_button_clicked(self):
         self.master.show_homepage()
