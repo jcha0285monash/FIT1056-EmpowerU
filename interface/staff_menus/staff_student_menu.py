@@ -212,7 +212,8 @@ class StaffStudentMenu(tk.Frame):
             self.student_email_entry.get() + "," +
             self.student_password_entry.get() + "," +
             self.student_name_entry.get() + "," +
-            joined_courses
+            joined_courses + "," +
+            "ACTIVE"
         )
 
         if os.path.exists(self.student_path):
