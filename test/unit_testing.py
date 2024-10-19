@@ -13,8 +13,15 @@ from interface.student_menu import StudentMenu
 
 import pytest
 
-
-#** Positive Testing for different user's authentication
+# ** Test if students can be imported
+def test_import_students():
+    students = Student.import_students()
+    assert len(students) > 0
+    for student in students:
+        assert isinstance(student, Student)
+        assert student.uid.startswith("stu")
+        
+#* Positive Testing for different user's authentication
 def test_authenticate():
     """
     This test will check if the respective users can login successfully,
@@ -43,7 +50,7 @@ def test_authenticate():
     assert test_authenticate.status == "ACTIVE"
    
     
-#** Positive Testing for registration
+#* Positive Testing for registration as a normal user
 def test_student_registration():
     # Test valid registration
     reg_student = Student.register_student("Mark", "mark@gmail.com", "pass")
@@ -58,7 +65,7 @@ def test_student_registration():
     assert reg_student.name == "Noah"
     assert reg_student.email == "noah@gmail.com"
                 
-# * Positive Testing for staff to create teachers
+#* Positive Testing for staff to create teachers
 def test_create_teacher():
     user_path = "./database/teacher.txt"
     test_create_teacher = Staff.add_user("tea123", "Johnathan", "Johnathan@EmpowerU.com", "pass", user_path, "Programming in Python")
@@ -70,11 +77,14 @@ def test_create_teacher():
     assert teacher.name == "Johnathan"
     assert teacher.course == "Programming in Python"
     
-
-# ** Test if students can be imported
-def test_import_students():
-    students = Student.import_students()
-    assert len(students) > 0
-    for student in students:
-        assert isinstance(student, Student)
-        assert student.uid.startswith("stu")
+    
+#* Positive Testing for editing a user's details
+def test_edit_user():
+    user_path = "./database/staff.txt"
+    test_edit_user = Staff.edit_user("sta2", "editedEmail@gmail.com", "2", "Eddy", "staff" ,user_path, selected_line=1, selected_user_status="ACTIVE") 
+    edited_user = test_edit_user.split(",")
+    user = Staff(*edited_user)
+    assert isinstance(user, Staff)
+    assert user.uid == "sta2"
+    assert user.email == "editedEmail@gmail.com"
+    assert user.name == "Eddy"

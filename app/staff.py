@@ -26,3 +26,13 @@ class Staff(User):
                 new_user = f"{uid},{email},{password},{name},{unique},{status}"
                 f.write(new_user + "\n")
         return new_user
+    
+    def edit_user(uid, email, password, name, unique, user_path, selected_line, selected_user_status):
+        user_details = uid + "," + email + "," + password + "," + name + "," + unique + "," + selected_user_status
+        if os.path.exists(user_path):
+            with open(user_path, "r", encoding="utf8") as rf:
+                data = rf.readlines()
+            data[selected_line] = user_details + "\n"
+            with open(user_path, "w", encoding="utf8") as wf:
+                wf.writelines(data)
+        return user_details

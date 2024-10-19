@@ -236,16 +236,10 @@ class StaffUserMenu(tk.Frame):
             self.alert_label_edit.config(fg="red")
             self.alert_var_edit.set("UID already exists")
             return
-        user_details = uid + "," + email + "," + password + "," + name + "," + unique + "," + self.selected_user_status
-        if os.path.exists(self.user_path):
-            with open(self.user_path, "r", encoding="utf-8") as rf:
-                data = rf.readlines()
-            data[self.selected_line] = user_details + "\n"
-            with open(self.user_path, "w", encoding="utf-8") as wf:
-                wf.writelines(data)
-            self.load_users()
-            self.alert_label_edit.config(fg="green")
-            self.alert_var_edit.set(f"{self.user.title()} details updated")
+        Staff.edit_user(uid, email, password, name, unique, self.user_path, self.selected_line, self.selected_user_status)
+        self.load_users()
+        self.alert_label_edit.config(fg="green")
+        self.alert_var_edit.set(f"{self.user.title()} details updated")
 
     def add_button_clicked(self):
         uid = self.user_uid_add_entry.get()
@@ -269,6 +263,7 @@ class StaffUserMenu(tk.Frame):
             self.alert_label_add.config(fg="red")
             self.alert_var_add.set("Invalid email")
             return
+        # User created in Staff Class
         Staff.add_user(uid, name, email, password, self.user_path)
         self.alert_label_add.config(fg="green")
         self.alert_var_add.set(f"Registration successful.")
