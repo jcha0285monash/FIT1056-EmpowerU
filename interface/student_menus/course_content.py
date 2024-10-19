@@ -32,6 +32,10 @@ class CourseDetailsPage(tk.Frame):
         self.task_listbox = tk.Listbox(self, width=50, height=10)
         self.task_listbox.pack(pady=20)
         self.load_tasks(selected_course)
+        
+        self.alert_var = tk.StringVar()
+        self.alert_label = tk.Label(self, textvariable=self.alert_var, fg="red", font=("Arial", 12))
+        self.alert_label.pack(pady=10)
 
         button_frame = tk.Frame(self)
         button_frame.pack(fill="x", pady=10)
@@ -39,7 +43,7 @@ class CourseDetailsPage(tk.Frame):
         # "Open Task" button
         self.select_task_button = tk.Button(button_frame, text="Open Task", command=self.open_task)
         self.select_task_button.grid(row=0, column=4, padx=5, pady=5, sticky="W")
-        
+
         # "Back to Course" button
         self.back_button = tk.Button(button_frame, text="Back to Course", command=self.load_course_content_button)
         self.back_button.grid(row=0, column=5, padx=5, pady=5, sticky="E")
@@ -50,7 +54,7 @@ class CourseDetailsPage(tk.Frame):
 
         # "Mark as Done" button (initially hidden)
         self.markdone_button = tk.Button(button_frame, text="Mark Task as Done", command=self.markdone)
-        self.markdone_button.grid(row=0, column=7, padx=5, pady=5, sticky="W")
+        self.markdone_button.grid(row=0, column=7, padx=5, pady=5, sticky="E")
         self.markdone_button.grid_remove()
 
         # Calculate initial progress after setting up UI components
@@ -95,22 +99,31 @@ class CourseDetailsPage(tk.Frame):
                 self.task_listbox.insert(tk.END, display_text)
 
     def open_task(self):
-        selected_task = self.task_listbox.get(tk.ACTIVE).split(" - ")[0]
-        task_file_path = f"database/tasks/{self.selected_course}/{selected_task}.txt"
-        self.course_text.delete(1.0, tk.END)
-
-        if os.path.exists(task_file_path):
-            with open(task_file_path, "r", encoding="utf-8") as file:
-                content = file.read()
-                self.course_text.insert(tk.END, content)
-
-                # Show the "Mark as Done" button only if the task isn't already marked as done
-                if "Done" not in content:
-                    self.markdone_button.grid(row=0, column=7, padx=5, pady=5, sticky="W")
+        if self.task_listbox.curselection():
+            selected_task = self.task_listbox.get(tk.ACTIVE).split(" - ")[0]
+            task_file_path = f"database/tasks/{self.selected_course}/{selected_task}.txt"
+            self.course_text.delete(1.0, tk.END)
+            if selected_task:
+                if os.path.exists(task_file_path):
+                    with open(task_file_path, "r", encoding="utf-8") as file:
+                        content = file.read()
+                        self.course_text.insert(tk.END, content)
+                        
+                        
+                        self.alert_var.set("")
+                        # Show the "Mark as Done" button only if the task isn't already marked as done
+                        if "Done" not in content:
+                            self.markdone_button.grid(row=0, column=7, padx=5, pady=5, sticky="W")
+                        else:
+                            self.markdone_button.grid_remove()
                 else:
-                    self.markdone_button.grid_remove()
+                    self.course_text.insert(tk.END, f"No task content available for {selected_task}.")
+            else:
+                # Show an alert if no task is selected
+                self.alert_var.set("Please select a task to view its content.")
         else:
-            self.course_text.insert(tk.END, f"No task content available for {selected_task}.")
+        # Show an alert if no task is selected
+            self.alert_var.set("Please select a task to view its content.")    
 
     def calculate_progress(self):
         tasks_directory = f"database/tasks/{self.selected_course}/"
@@ -150,9 +163,12 @@ class CourseDetailsPage(tk.Frame):
                 if "Done" not in content:
                     file.write("\nDone")
                     # Update the progress bar and remove the button
-                    self.calculate_progress()
+                    
                     self.markdone_button.grid_remove()
+
+        self.calculate_progress()            
 
     def back_to_home(self):
         self.pack_forget()
         self.master.show_student_menu(self.student_menu)
+
