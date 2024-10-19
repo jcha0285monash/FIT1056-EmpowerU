@@ -269,17 +269,10 @@ class StaffUserMenu(tk.Frame):
             self.alert_label_add.config(fg="red")
             self.alert_var_add.set("Invalid email")
             return
-        self.add_user(uid, name, email, password)
+        Staff.add_user(uid, name, email, password, self.user_path)
         self.alert_label_add.config(fg="green")
         self.alert_var_add.set(f"Registration successful.")
         self.load_users()
-
-    def add_user(self, uid, name, email, password, unique="", status="ACTIVE"):
-        if os.path.exists(self.user_path):
-            with open(self.user_path, "a", encoding="utf8") as f:
-                new_user = f"{uid},{email},{password},{name},{unique},{status}"
-                f.write(new_user + "\n")
-        return new_user
             
     def activate_deactivate_user_button_clicked(self):
         selected_data = self.tree.focus()

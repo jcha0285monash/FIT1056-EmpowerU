@@ -20,3 +20,9 @@ class Staff(User):
         super().__init__(uid, email, password, name, status)
         self.role = role
         
+    def add_user(uid, name, email, password, user_path, unique="", status="ACTIVE"):
+        if os.path.exists(user_path):
+            with open(user_path, "a", encoding="utf8") as f:
+                new_user = f"{uid},{email},{password},{name},{unique},{status}"
+                f.write(new_user + "\n")
+        return new_user

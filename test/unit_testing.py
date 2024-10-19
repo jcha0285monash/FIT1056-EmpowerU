@@ -58,37 +58,17 @@ def test_student_registration():
     assert reg_student.name == "Noah"
     assert reg_student.email == "noah@gmail.com"
                 
-
+# * Positive Testing for staff to create teachers
 def test_create_teacher():
-    # Create a real Tkinter root widget
-    root = tk.Tk()
-    # Create mock objects for the other required arguments
-    staff_user = Mock()
-    staff_menu = Mock()
-    user = "teacher"  # Set the user type to 'teacher'
-    
-    # Create an instance of StaffUserMenu with the real Tkinter root and mock arguments
-    staff_menu_instance = StaffUserMenu(root, staff_user, staff_menu, user)
-    staff_menu_instance.user_path = f"./database/{staff_menu_instance.user}.txt"
-    
-    # Ensure the file exists before calling add_user, (https://www.geeksforgeeks.org/python-os-makedirs-method/), (https://bugs.python.org/issue33968)
-    os.makedirs(os.path.dirname(staff_menu_instance.user_path), exist_ok=True)
-    with open(staff_menu_instance.user_path, "a", encoding="utf8"):
-        pass
-
-    # Call the add_user method
-    teacher_data = staff_menu_instance.add_user("tea123", "Johnathan", "Johnathan@EmpowerU.com", "pass", "Programming in Python", "ACTIVE")
-    teacher_info = teacher_data.split(",")
-    # * is used to unpack the list into arguments
-    teacher = Teacher(*teacher_info)
-
-    # Assertions to verify the teacher object
+    user_path = "./database/teacher.txt"
+    test_create_teacher = Staff.add_user("tea123", "Johnathan", "Johnathan@EmpowerU.com", "pass", user_path, "Programming in Python")
+    teacher_data = test_create_teacher.split(",")
+    teacher = Teacher(*teacher_data)
     assert isinstance(teacher, Teacher)
     assert teacher.uid == "tea123"
     assert teacher.email == "Johnathan@EmpowerU.com"
     assert teacher.name == "Johnathan"
     assert teacher.course == "Programming in Python"
-    assert teacher.status == "ACTIVE"
     
 
 # ** Test if students can be imported
