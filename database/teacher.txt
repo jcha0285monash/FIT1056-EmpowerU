@@ -1,1 +1,1 @@
-tea1,chloe@gmail.com,pass,chloe,Programming in Python,ACTIVE
+tea1,chloe@gmail.com,pass,Chloe,Programming in Python,ACTIVE
