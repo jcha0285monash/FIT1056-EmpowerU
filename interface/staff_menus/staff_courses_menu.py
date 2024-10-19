@@ -50,13 +50,27 @@ class StaffCoursesMenu(tk.Frame):
                 self.courses_listbox.insert(tk.END, line.strip())
 
     def edit_course_button_clicked(self):
-        """Allows the staff to edit the selected course."""
+        """Allows the staff to edit the selected course, preventing duplicate course names."""
         selected_course_index = self.courses_listbox.curselection()
+        
         if selected_course_index:
             selected_course = self.courses_listbox.get(selected_course_index)
             new_name = simpledialog.askstring("Edit Course", "Enter the new course name:", initialvalue=selected_course)
+            
             if new_name:
+                available_courses_path = "database/available_courses.txt"
+                
+                # Check if the new course name already exists
+                with open(available_courses_path, "r", encoding="utf-8") as rf:
+                    courses = rf.readlines()
+                
+                if new_name + "\n" in courses:
+                    messagebox.showerror("Course Exists", f"A course with the name '{new_name}' already exists.")
+                    return  # Exit if the new course name already exists
+
+                # Proceed with renaming if the new name is unique
                 self.update_course_in_file(selected_course, new_name)
+
 
     def update_course_in_file(self, old_name, new_name):
         """Updates the course name in the file."""
@@ -77,13 +91,27 @@ class StaffCoursesMenu(tk.Frame):
         self.load_courses()
 
     def add_course(self):
-        """Adds a new course to the available_courses.txt file."""
+        """Adds a new course to the available_courses.txt file, preventing duplicates."""
         new_course = simpledialog.askstring("New Course", "Enter the name of the new course:")
+        
         if new_course:
             available_courses_path = "database/available_courses.txt"
+
+            # Check if the course already exists
+            with open(available_courses_path, "r", encoding="utf-8") as rf:
+                courses = rf.readlines()
+            
+            if new_course + "\n" in courses:
+                messagebox.showerror("Course Exists", f"A course with the name '{new_course}' already exists.")
+                return  # Exit if the course already exists
+
+            # If the course is unique, add it to the file
             with open(available_courses_path, "a", encoding="utf-8") as wf:
-                wf.write(new_course + "\n")
+                wf.write("\n" + new_course)
+
             self.load_courses()
+            messagebox.showinfo("Course Added", f"The course '{new_course}' has been successfully added.")
+
 
     def delete_course(self):
         """Deletes the selected course from the available_courses.txt file."""

@@ -32,8 +32,8 @@ class EditCourseContentPage(tk.Frame):
         self.add_task_button = tk.Button(self, text="Add New Task", command=self.add_task)
         self.add_task_button.pack(pady=5)
 
-        self.add_task_button = tk.Button(self, text="Edit Task", command=self.edit_task)
-        self.add_task_button.pack(pady=5)
+        self.edit_task_button = tk.Button(self, text="Edit Task", command=self.edit_task)
+        self.edit_task_button.pack(pady=5)
 
         self.delete_task_button = tk.Button(self, text="Delete Task", command=self.delete_task)
         self.delete_task_button.pack(pady=5)
@@ -61,12 +61,22 @@ class EditCourseContentPage(tk.Frame):
             self.course_text.insert(tk.END, f"No course content available for {selected_course}.")                
 
     def save_content(self):
-        """Saves the modified course content and tasks."""
+        """Saves the modified course content."""
         course_file_path = f"database/courses/{self.selected_course}.txt"
+
+        # Check if a course with the same name already exists
+        if os.path.exists(course_file_path):
+            # Ask the user whether to overwrite the existing course or not
+            response = messagebox.askyesno("Course Exists", f"A course with the name '{self.selected_course}' already exists. Do you want to overwrite it?")
+            if not response:
+                return  # Exit if the user doesn't want to overwrite the existing course
+
+        # Save the new or updated course content
         with open(course_file_path, "w", encoding="utf-8") as file:
             file.write(self.course_text.get(1.0, tk.END).strip())
 
         messagebox.showinfo("Save Successful", "Course content has been successfully saved.")
+
 
     def load_tasks(self, selected_course):
         self.tasks_listbox.delete(0, tk.END)
@@ -106,14 +116,25 @@ class EditCourseContentPage(tk.Frame):
             self.course_text.insert(tk.END, f"No task content available for {selected_task}.")
 
     def edit_task(self):
-        """Allows the staff to edit the selected task."""
+        """Allows the staff to edit the selected task, preventing duplicate task names."""
         selected_task_index = self.tasks_listbox.curselection()
         if selected_task_index:
-            selected_task = self.tasks_listbox.get(selected_task_index)
+            selected_task = self.tasks_listbox.get(selected_task_index).split(" - ")[0]  # Get the task name without deadline
             new_task = simpledialog.askstring("Edit Task", "Enter the new task name:", initialvalue=selected_task)
+            
             if new_task:
-                selected_course = self.courses_listbox.get(tk.ACTIVE)
+                # Path to the new task file
+                new_task_file_path = f"database/tasks/{self.selected_course}/{new_task}.txt"
+                
+                # Check if the new task name already exists
+                if os.path.exists(new_task_file_path):
+                    messagebox.showerror("Task Exists", f"A task with the name '{new_task}' already exists.")
+                    return  # Exit if the new task name already exists
+
+                # If the task name is unique, proceed with renaming the task
+                selected_course = self.selected_course
                 self.update_task_in_file(selected_course, selected_task, new_task)
+
 
     def update_task_in_file(self, course_name, old_task, new_task):
         """Updates the task in the task file."""
@@ -129,14 +150,26 @@ class EditCourseContentPage(tk.Frame):
 
     def add_task(self):
         """Adds a new task to the selected course."""
-        selected_task = self.tasks_listbox.get(tk.ACTIVE)
-        if selected_task:
-            new_task = simpledialog.askstring("New Task", f"Enter a new task for {selected_task}:")
-            if new_task:
-                tasks_path = f"database/tasks/{self.selected_course}/{selected_task}.txt"
-                with open(tasks_path, "a", encoding="utf-8") as wf:
-                    wf.write(new_task + "\n")
-                self.load_tasks(None)
+        new_task = simpledialog.askstring("New Task", f"Enter a new task for {self.selected_course}:")
+        
+        if new_task:
+            # Path to the task file
+            task_file_path = f"database/tasks/{self.selected_course}/{new_task}.txt"
+            
+            # Check if a task with the same name already exists
+            if os.path.exists(task_file_path):
+                messagebox.showerror("Task Exists", f"A task with the name '{new_task}' already exists.")
+                return  # Exit if the task already exists
+
+            # If task doesn't exist, create the task file and write to it
+            with open(task_file_path, "w", encoding="utf-8") as wf:
+                wf.write("")  # Add an empty file or any default content as needed
+            
+            # Reload the tasks to update the listbox
+            self.load_tasks(self.selected_course)
+
+            messagebox.showinfo("Task Added", f"The task '{new_task}' has been successfully added.")
+
 
     def delete_task(self):
         """Deletes the selected task from the task file."""
