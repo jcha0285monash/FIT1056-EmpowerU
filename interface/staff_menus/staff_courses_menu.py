@@ -107,7 +107,7 @@ class StaffCoursesMenu(tk.Frame):
 
             # If the course is unique, add it to the file
             with open(available_courses_path, "a", encoding="utf-8") as wf:
-                wf.write("\n" + new_course)
+                wf.write(new_course + "\n")
 
             self.load_courses()
             messagebox.showinfo("Course Added", f"The course '{new_course}' has been successfully added.")
