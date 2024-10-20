@@ -43,18 +43,21 @@ class Student:
 
     @staticmethod
     def register_student(name, email, password, course="", status="ACTIVE"):
-        students = Student.import_students()
-        student_path = "./database/student.txt"
-        stu_id = "stu" + str(len(students) + 1).zfill(4)
-        new_student = Student(stu_id, email, password, name, course, status)
-        students.append(new_student)
-        
-        if os.path.exists(student_path):
-            with open(student_path, "a", encoding="utf8") as f:
-                student_data = f"{stu_id},{email},{password},{name},{course},{status}"
-                f.write(student_data + "\n")
-        
-        return new_student
+        if Student.validate_email(email) == False:
+            students = Student.import_students()
+            student_path = "./database/student.txt"
+            stu_id = "stu" + str(len(students) + 1).zfill(4)
+            new_student = Student(stu_id, email, password, name, course, status)
+            students.append(new_student)
+            
+            if os.path.exists(student_path):
+                with open(student_path, "a", encoding="utf8") as f:
+                    student_data = f"{stu_id},{email},{password},{name},{course},{status}"
+                    f.write(student_data + "\n")
+            
+            return new_student
+        else  :
+            return None
 
     @staticmethod
     def validate_email(email):

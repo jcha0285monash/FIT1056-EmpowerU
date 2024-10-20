@@ -81,8 +81,12 @@ class RegisterMenu(tk.Frame):
             self.alert_var.set("Invalid email")
         else:
             new_student = Student.register_student(name, email, password)
-            self.alert_label.config(fg="green")
-            self.alert_var.set(f"Registration successful.\nPlease log in with uid {new_student.uid}.")
+            if new_student != None:
+                self.alert_label.config(fg="green")
+                self.alert_var.set(f"Registration successful.\nPlease log in with uid {new_student.uid}.")
+            else:
+                self.alert_label.config(fg="red")
+                self.alert_var.set("Email already exists")
 
     def back_to_homepage_button_clicked(self):
         self.master.show_homepage()

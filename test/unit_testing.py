@@ -53,17 +53,17 @@ def test_authenticate():
 #* Positive Testing for registration as a normal user
 def test_student_registration():
     # Test valid registration
-    reg_student = Student.register_student("Mark", "mark@gmail.com", "pass")
-    assert isinstance(reg_student, Student)
+    reg_student = Student.register_student("DummyTest", "dumbtest@gmail.com", "pass")
+    assert type(reg_student) == Student
     assert "stu" in reg_student.uid
-    assert reg_student.name == "Mark"
-    assert reg_student.email == "mark@gmail.com"
+    assert reg_student.name == "DummyTest"
+    assert reg_student.email == "dumbtest@gmail.com"
     
-    reg_student = Student.register_student("Noah", "noah@gmail.com", "pass")
+    reg_student = Student.register_student("DummyTest2", "DummyTest2@gmail.com", "pass")
     assert isinstance(reg_student, Student)
     assert "stu" in reg_student.uid
-    assert reg_student.name == "Noah"
-    assert reg_student.email == "noah@gmail.com"
+    assert reg_student.name == "DummyTest2"
+    assert reg_student.email == "DummyTest2@gmail.com"
                 
 #* Positive Testing for staff to create teachers
 def test_create_teacher():
@@ -103,4 +103,18 @@ def test_authenticate_negative():
     test_authenticate = Teacher.authenticate("tea1", "wrongpass", "..")
     assert test_authenticate == None
     
+#* Negative Testing for registration as a normal user
+def test_student_registration_negative():
+    # Test invalid registration where the email is already in use
+    reg_student = Student.register_student("Joel", "joel@monash.edu", "pass")
+    assert reg_student == None
+    reg_student = Student.register_student("Emily", "ahhh@gmail.com","pass")
+    assert reg_student == None
+    
+#* Negative Testing for staff to create teachers
+def test_create_teacher_negative():
+    # Test invalid user path given
+    user_path = "./database/wrong.txt"
+    test_create_teacher = Staff.add_user("tea123", "Johnathan", "Johnathon@EmpowerU.com", "pass", user_path, "Programming in Python")
+    assert test_create_teacher == None
     

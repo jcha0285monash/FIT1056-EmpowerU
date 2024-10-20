@@ -25,7 +25,9 @@ class Staff(User):
             with open(user_path, "a", encoding="utf8") as f:
                 new_user = f"{uid},{email},{password},{name},{unique},{status}"
                 f.write(new_user + "\n")
-        return new_user
+            return new_user
+        else :
+            return None
     
     def edit_user(uid, email, password, name, unique, user_path, selected_line, selected_user_status):
         user_details = uid + "," + email + "," + password + "," + name + "," + unique + "," + selected_user_status
