@@ -73,14 +73,14 @@ class RegisterMenu(tk.Frame):
         elif name == "" or email == "" or password == "" or confirm_password == "":
             self.alert_label.config(fg="red")
             self.alert_var.set("Please fill in all fields")
-        elif Student.validate_email(email):
+        elif Student.validate_email(email, "."):
             self.alert_label.config(fg="red")
             self.alert_var.set("Email already exists")
         elif "@" not in email or "." not in email:
             self.alert_label.config(fg="red")
             self.alert_var.set("Invalid email")
         else:
-            new_student = Student.register_student(name, email, password)
+            new_student = Student.register_student(name, email, password, ".")
             if new_student != None:
                 self.alert_label.config(fg="green")
                 self.alert_var.set(f"Registration successful.\nPlease log in with uid {new_student.uid}.")

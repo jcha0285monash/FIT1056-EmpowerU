@@ -15,7 +15,7 @@ import pytest
 
 # ** Test if students can be imported
 def test_import_students():
-    students = Student.import_students()
+    students = Student.import_students("..")
     assert len(students) > 0
     for student in students:
         assert isinstance(student, Student)
@@ -53,13 +53,13 @@ def test_authenticate():
 #* Positive Testing for registration as a normal user
 def test_student_registration():
     # Test valid registration
-    reg_student = Student.register_student("DummyTest", "dumbtest@gmail.com", "pass")
+    reg_student = Student.register_student("DummyTest", "dumbtest@gmail.com", "pass", "..")
     assert type(reg_student) == Student
     assert "stu" in reg_student.uid
     assert reg_student.name == "DummyTest"
     assert reg_student.email == "dumbtest@gmail.com"
     
-    reg_student = Student.register_student("DummyTest2", "DummyTest2@gmail.com", "pass")
+    reg_student = Student.register_student("DummyTest2", "DummyTest2@gmail.com", "pass", "..")
     assert isinstance(reg_student, Student)
     assert "stu" in reg_student.uid
     assert reg_student.name == "DummyTest2"
@@ -67,7 +67,7 @@ def test_student_registration():
                 
 #* Positive Testing for staff to create teachers
 def test_create_teacher():
-    user_path = "./database/teacher.txt"
+    user_path = "../database/teacher.txt"
     test_create_teacher = Staff.add_user("tea123", "Johnathan", "Johnathan@EmpowerU.com", "pass", user_path, "Programming in Python")
     teacher_data = test_create_teacher.split(",")
     teacher = Teacher(*teacher_data)
@@ -108,8 +108,8 @@ def test_authenticate_negative():
 #* Negative Testing for registration as a normal user
 def test_student_registration_negative():
     # Test invalid registration where the email is already in use
-    reg_student = Student.register_student("Joel", "joel@monash.edu", "pass")
+    reg_student = Student.register_student("Joel", "joel@monash.edu", "pass", "..")
     assert reg_student == None
-    reg_student = Student.register_student("Emily", "ahhh@gmail.com","pass")
+    reg_student = Student.register_student("Emily", "ahhh@gmail.com","pass", "..")
     assert reg_student == None
 

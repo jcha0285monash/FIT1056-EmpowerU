@@ -29,7 +29,7 @@ class Student:
                         return None
 
     @staticmethod
-    def import_students(filepath=".."):
+    def import_students(filepath):
         students = []
         student_path = f"{filepath}/database/student.txt"
         if os.path.exists(student_path):
@@ -39,12 +39,12 @@ class Student:
                 stu_id, email, password, name, course, status = line.strip().split(",")
                 student_obj = Student(stu_id, email, password, name, course, status)
                 students.append(student_obj)
-        return students
+            return students
 
     @staticmethod
-    def register_student(name, email, password, course="", status="ACTIVE"):
-        if Student.validate_email(email) == False:
-            students = Student.import_students()
+    def register_student(name, email, password, filepath, course="", status="ACTIVE"):
+        if Student.validate_email(email,filepath) == False:
+            students = Student.import_students(filepath)
             student_path = "./database/student.txt"
             stu_id = "stu" + str(len(students) + 1).zfill(4)
             new_student = Student(stu_id, email, password, name, course, status)
@@ -60,8 +60,8 @@ class Student:
             return None
 
     @staticmethod
-    def validate_email(email):
-        students = Student.import_students()
+    def validate_email(email, filepath):
+        students = Student.import_students(filepath)
         for student in students:
             if student.email == email:
                 return True
