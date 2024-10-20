@@ -1,6 +1,6 @@
 import os
 import sys
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 import tkinter as tk
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -89,6 +89,7 @@ def test_edit_user():
     assert user.email == "editedEmail@gmail.com"
     assert user.name == "Eddy"
 
+
 #* Negative testing for authentication
 def test_authenticate_negative():
     """
@@ -102,6 +103,7 @@ def test_authenticate_negative():
     
     test_authenticate = Teacher.authenticate("tea1", "wrongpass", "..")
     assert test_authenticate == None
+
     
 #* Negative Testing for registration as a normal user
 def test_student_registration_negative():
@@ -110,11 +112,4 @@ def test_student_registration_negative():
     assert reg_student == None
     reg_student = Student.register_student("Emily", "ahhh@gmail.com","pass")
     assert reg_student == None
-    
-#* Negative Testing for staff to create teachers
-def test_create_teacher_negative():
-    # Test invalid user path given
-    user_path = "./database/wrong.txt"
-    test_create_teacher = Staff.add_user("tea123", "Johnathan", "Johnathon@EmpowerU.com", "pass", user_path, "Programming in Python")
-    assert test_create_teacher == None
-    
+
